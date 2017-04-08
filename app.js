@@ -47,8 +47,8 @@ function handleFile(message) {
     if (message['file']['filetype'] == 'space') {
       console.log("saving slack post");
       db.savePost(message);
-    } else if (message['file']['filetype'] == 'jpg') {
-      console.log("saving jpg");
+    } else if (message['file']['filetype'] == 'jpg' || message['file']['filetype'] == 'png') {
+      console.log("saving jpg/png");
       db.saveImage(message);
     } else {
       console.log("unrecognized file type");
