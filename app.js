@@ -15,35 +15,14 @@ slack.start();
 
 // On any message, do stuff
 slack.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
-  console.log('Message:', message);
+    console.log('Message:', message);
 
-      if (message['type'] == 'message') {
-          slack.sendMessage("I think you said: " + message['text'], message['channel']);
-      }
+    if (message['subtype'] == 'bot_message') {
+      slack.sendMessage("I think I should probably send this data somewhere...", message['channel']);
+    }
+    else if (message['type'] == 'message') {
+        slack.sendMessage("I think you said: " + message['text'], message['channel']);
+    }
+
+
 });
-
-//
-// var bot = controller.spawn({
-//     token: process.env.token
-// }).startRTM();
-// // reply to non-mentioning incoming messages
-// controller.on('ambient', function(bot, message) {
-//
-//     console.log(message)
-//     // This seems to be the message type for "sent messages"
-//     if (message['type'] == 'message') {
-//         // Echo message
-//         bot.reply(message, 'You said: ' + message['text']);
-//     }
-// });
-//
-// // reply to messages @hackbot
-// controller.on('message_received', function(bot, message) {
-//
-//     console.log(message)
-//     // This seems to be the message type for "sent messages"
-//     if (message['type'] == 'desktop_notification') {
-//         // Echo message
-//         bot.reply(message, "In the future, I will support commands. For now, I'm not listening")
-//     }
-// });
