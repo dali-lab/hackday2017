@@ -36,7 +36,7 @@ var db = {
   },
 
   saveCommit: function(message) {
-    var authorRegex = '> by ([a-zA-Z]*):';
+    var authorRegex = '> by ([a-zA-Z]*)';
     var urlRegex = '<(.*?)\\|';
     var commitMsgRegex = '` (.*?) -';
 
