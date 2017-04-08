@@ -6,6 +6,7 @@ if (!process.env.token) {
 const os = require('os');
 const RtmClient = require('@slack/client').RtmClient;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
+const db = require('./database');
 
 // Build client
 var slack = new RtmClient(process.env.token);
@@ -29,7 +30,7 @@ slack.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
             break;
 
         default:
-            handleMessage(message)
+            // handleMessage(message)
             break;
     }
 });
@@ -43,6 +44,16 @@ function handleBot(message) {
 
 function handleFile(message) {
     slack.sendMessage("I'm going to put those files somewhere", message['channel']);
+
+    if (message['file']['filetype'] == 'space') {
+      console.log("saving slack post");
+      db.savePost(message);
+    } else if (message['file']['filetype'] == 'jpg') {
+      console.log("saving jpg");
+      db.saveImage(message);
+    } else {
+      console.log("unrecognized file type");
+    }
 }
 
 function handleMessage(message) {
