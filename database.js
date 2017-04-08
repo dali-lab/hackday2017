@@ -45,7 +45,7 @@ var db = {
     for (var i = 0; i < commits.length; i++) {
       commitRef.set({
         'ts': message['ts'],
-        'author': message['attachments'][0]['pretext'].match(authorRegex)[1],
+        'author': message['attachments'][0]['fallback'].match(authorRegex)[1],
         'link': commits[i].match(urlRegex)[1],
         'message': commits[i].match(commitMsgRegex)[1]
       });
