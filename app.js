@@ -13,25 +13,25 @@ var bot = controller.spawn({
 }).startRTM();
 
 
-// reply to any incoming message
-controller.on('message_received', function(bot, message) {
+// reply to non-mentioning incoming messages
+controller.on('ambient', function(bot, message) {
 
+    console.log(message)
     // This seems to be the message type for "sent messages"
-    if (message['type'] == 'desktop_notification')
-
-    // Echo message
-    bot.reply(message, 'You said: ' + message['content']);
+    if (message['type'] == 'message') {
+        // Echo message
+        bot.reply(message, 'You said: ' + message['text']);
+    }
 });
 
-controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', function(bot, message) {
-    bot.api.reactions.add({
-        timestamp: message.ts,
-        channel: message.channel,
-        name: 'yeezy',
-    }, function(err, res) {
-        if (err) {
-            bot.botkit.log('Failed to add emoji reaction :(', err);
-        }
-    });
 
-})
+// reply to messages @hackbot
+controller.on('message_received', function(bot, message) {
+
+    console.log(message)
+    // This seems to be the message type for "sent messages"
+    if (message['type'] == 'desktop_notification') {
+        // Echo message
+        bot.reply(message, 'You said: ' + message['content']);
+    }
+});
