@@ -30,7 +30,7 @@ slack.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
             break;
 
         default:
-            // handleMessage(message)
+            //handleMessage(message)
             break;
     }
 });
@@ -51,7 +51,8 @@ function handleFile(message) {
       console.log("saving jpg/png");
       db.saveImage(message);
     } else {
-      console.log("unrecognized file type");
+        //db.saveGeneral(message);
+        console.log("unrecognized file type");
     }
 }
 
@@ -59,7 +60,13 @@ function handleMessage(message) {
     direct_mention = message['text'].indexOf("<@" + slack.activeUserId + ">")
     if (direct_mention != -1) {
         slack.sendMessage("You mentioned me!", message['channel']);
-    } else {
-        slack.sendMessage("I think you said: " + message['text'], message['channel']);
+        handleCommand(message, direct_mention)
     }
+}
+
+function handleCommand(message, index) {
+    var offset = ("<@" + slack.activeUserId + ">").length
+    var command = message['text'].substring(index + offset)
+    slack.sendMessage("Command arguments: " + command.trim().split(" "), message['channel']);
+
 }
