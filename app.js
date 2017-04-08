@@ -32,6 +32,6 @@ controller.on('message_received', function(bot, message) {
     // This seems to be the message type for "sent messages"
     if (message['type'] == 'desktop_notification') {
         // Echo message
-        bot.reply(message, 'You said: ' + message['content']);
+        bot.reply(message, "In the future, I will support commands. For now, I'm not listening")
     }
 });
