@@ -37,9 +37,8 @@ slack.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
 // Message handlers
 function handleBot(message) {
-    slack.sendMessage("So there's another bot, huh?", message['channel']);
-
-    console.log(message['fallback'])
+    slack.sendMessage("Commit logged!", message['channel']);
+    db.saveCommit(message);
 }
 
 function handleFile(message) {

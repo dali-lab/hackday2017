@@ -36,9 +36,20 @@ var db = {
   },
 
   saveCommit: function(message) {
-    commitRef.set({
+    var authorRegex = '> by ([a-zA-Z]*):';
+    var urlRegex = '<(.*?)\\|';
+    var commitMsgRegex = '` (.*?) -';
 
-    });
+    var commits = message['attachments'][0]['text'].split('\n');
+
+    for (var i = 0; i < commits.length; i++) {
+      commitRef.set({
+        'ts': message['ts'],
+        'author': message['attachments'][0]['pretext'].match(authorRegex)[1],
+        'link': commits[i].match(urlRegex)[1],
+        'message': commits[i].match(commitMsgRegex)[1]
+      });
+    }
   }
 };
 
