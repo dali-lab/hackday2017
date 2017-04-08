@@ -24,7 +24,6 @@ controller.on('ambient', function(bot, message) {
     }
 });
 
-
 // reply to messages @hackbot
 controller.on('message_received', function(bot, message) {
 
