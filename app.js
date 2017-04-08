@@ -12,7 +12,6 @@ var bot = controller.spawn({
     token: process.env.token
 }).startRTM();
 
-
 // reply to non-mentioning incoming messages
 controller.on('ambient', function(bot, message) {
 
