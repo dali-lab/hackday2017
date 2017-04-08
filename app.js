@@ -3,9 +3,8 @@ if (!process.env.token) {
     process.exit(1);
 }
 
-
 const os = require('os');
-var RtmClient = require('@slack/client').RtmClient;
+const RtmClient = require('@slack/client').RtmClient;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 
 
@@ -13,16 +12,38 @@ const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 var slack = new RtmClient(process.env.token);
 slack.start();
 
-// On any message, do stuff
+// Handles any incoming message from slack.
 slack.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
+
+    // Debug line for us
     console.log('Message:', message);
 
-    if (message['subtype'] == 'bot_message') {
-      slack.sendMessage("I think I should probably send this data somewhere...", message['channel']);
-    }
-    else if (message['type'] == 'message') {
-        slack.sendMessage("I think you said: " + message['text'], message['channel']);
-    }
+    // Route message to appropriate handler
+    // See types/subtypes: https://api.slack.com/events/message
+    switch (message['subtype']) {
+        case 'bot_message':
+            handleBot(message);
+            break;
 
+        case 'file_share':
+            handleFile(message);
+            break;
 
+        default:
+            handleMessage(message)
+            break;
+    }
 });
+
+// Message handlers
+function handleBot(message) {
+    slack.sendMessage("So there's another bot, huh?", message['channel']);
+}
+
+function handleFile(message) {
+    slack.sendMessage("I'm going to put those files somewhere", message['channel']);
+}
+
+function handleMessage(message) {
+  slack.sendMessage("I think you said: " + message['text'], message['channel']);
+}
