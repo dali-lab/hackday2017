@@ -14,6 +14,7 @@ var rootRef = firebase.database().ref();
 var postRef = rootRef.child('post');
 var imageRef = rootRef.child('image');
 var commitRef = rootRef.child('commit');
+var generalRef = rootRef.child('general')
 
 
 var db = {
@@ -33,6 +34,16 @@ var db = {
       'title': message['file']['title'],
       'link': message['file']['url_private']
     });
+  },
+
+  saveGeneral: function(message) {
+    generalRef.push().set({
+      'ts': message['ts'],
+      'author': message['username'],
+      'title': message['file']['title'],
+      'link': message['file']['permalink'],
+      'type': message['file']['mimetype']
+    })
   },
 
   saveCommit: function(message) {
