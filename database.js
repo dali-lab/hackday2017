@@ -11,14 +11,14 @@ var config = {
 firebase.initializeApp(config);
 
 var rootRef = firebase.database().ref();
-var postRef = rootRef.child('post').push();
-var imageRef = rootRef.child('image').push();
-var commitRef = rootRef.child('commit').push();
+var postRef = rootRef.child('post');
+var imageRef = rootRef.child('image');
+var commitRef = rootRef.child('commit');
 
 
 var db = {
   savePost: function(message) {
-    postRef.set({
+    postRef.push().set({
       'ts': message['ts'],
       'author': message['username'],
       'title': message['file']['title'],
@@ -27,7 +27,7 @@ var db = {
   },
 
   saveImage: function(message) {
-    imageRef.set({
+    imageRef.push().set({
       'ts': message['ts'],
       'author': message['username'],
       'title': message['file']['title'],
@@ -43,7 +43,7 @@ var db = {
     var commits = message['attachments'][0]['text'].split('\n');
 
     for (var i = 0; i < commits.length; i++) {
-      commitRef.set({
+      commitRef.push().set({
         'ts': message['ts'],
         'author': message['attachments'][0]['fallback'].match(authorRegex)[1],
         'link': commits[i].match(urlRegex)[1],
