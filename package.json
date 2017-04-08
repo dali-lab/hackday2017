@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@slack/client": "^3.9.0",
-    "botkit": "^0.5.2"
+    "botkit": "^0.5.2",
+    "firebase": "^3.7.5"
   }
 }
