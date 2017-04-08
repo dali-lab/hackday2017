@@ -41,7 +41,6 @@ var db = {
     var commitMsgRegex = '` (.*?) -';
 
     var commits = message['attachments'][0]['text'].split('\n');
-
     for (var i = 0; i < commits.length; i++) {
       commitRef.push().set({
         'ts': message['ts'],
