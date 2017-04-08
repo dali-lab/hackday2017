@@ -7,7 +7,6 @@ const os = require('os');
 const RtmClient = require('@slack/client').RtmClient;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 
-
 // Build client
 var slack = new RtmClient(process.env.token);
 slack.start();
@@ -45,5 +44,10 @@ function handleFile(message) {
 }
 
 function handleMessage(message) {
-  slack.sendMessage("I think you said: " + message['text'], message['channel']);
+    direct_mention = message['text'].indexOf("<@" + slack.activeUserId + ">")
+    if (direct_mention != -1) {
+        slack.sendMessage("You mentioned me!", message['channel']);
+    } else {
+        slack.sendMessage("I think you said: " + message['text'], message['channel']);
+    }
 }
