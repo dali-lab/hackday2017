@@ -45,11 +45,11 @@ function handleFile(message) {
     slack.sendMessage("I'm going to put those files somewhere", message['channel']);
 
     if (message['file']['filetype'] == 'space') {
-        console.log("saving slack post");
-        db.savePost(message);
-    } else if (message['file']['filetype'] == 'jpg') {
-        console.log("saving jpg");
-        db.saveImage(message);
+      console.log("saving slack post");
+      db.savePost(message);
+    } else if (message['file']['filetype'] == 'jpg' || message['file']['filetype'] == 'png') {
+      console.log("saving jpg/png");
+      db.saveImage(message);
     } else {
         //db.saveGeneral(message);
         console.log("unrecognized file type");
