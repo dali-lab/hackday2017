@@ -96,8 +96,8 @@ rootRef.on("value", function(snapshot) {
 		var record = {}
 
 		var media = {}
-		media['url'] = "https://files.slack.com/files-pri/T02FQFVUX-F4VTF2C3T/icon3.png"
-		media['caption'] = "GitHub commit"
+		media['url'] = "https://tctechcrunch2011.files.wordpress.com/2014/10/slack-large.png"
+		media['caption'] = "Slack post"
 		media['credit'] = posts[x]["author"]
 
 		var date = timeConverter(posts[x]["ts"])
